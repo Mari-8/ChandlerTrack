@@ -11,8 +11,8 @@ class NotesController < ApplicationController
     end 
 
     def create 
-        note = Note.new(note_params) 
 
+        note = Note.new(note_params) 
         if note.save 
             render json: NoteSerializer.new(note)
         else 
@@ -35,6 +35,6 @@ class NotesController < ApplicationController
     private 
 
     def note_params 
-        params.require(:note).permit(:note, :description, :amount)
+        params.require(:note).permit(:note_body, :recipe_id)
     end 
 end
