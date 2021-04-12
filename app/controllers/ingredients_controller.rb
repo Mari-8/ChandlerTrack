@@ -22,7 +22,9 @@ class IngredientsController < ApplicationController
         ingredient = Ingredient.new(ingredient_params)
 
         if ingredient.save 
-            render json: IngredientSerializer.new(ingredient) 
+            render json: ingredient.to_json(:include => {
+            :recipe => {:only => [:recipe_id, :name, :ingredients]}
+        })
         else 
             render json: {error: "Could not create ingredient"} 
         end 
@@ -43,6 +45,6 @@ class IngredientsController < ApplicationController
     private 
 
     def ingredient_params 
-        params.require(:ingredient).permit(:recipe_id, :inventory_item_id)
+        params.require(:ingredient).permit(:recipe_id, :name, :amount)
     end 
 end
