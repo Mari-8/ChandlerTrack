@@ -29,12 +29,12 @@ class Note {
         noteInfo.className = "recipe-notes"
 
         noteInfo.innerHTML = `
-        <h2>Notes</h2> 
+        <h1>Notes</h1> 
         <br>
         <form id="new-note-form">
         <h3>Add Note</h3>
         <label for="note_body" >Note:</label>
-        <input type="text-field" name="note-body" id="note-body"><br><br>
+        <textarea form="new-note-form" name="note-body" id="note-body"></textarea><br><br>
         <input type="submit" id="new-note-button" value="Add note">
         </form>
         `
