@@ -61,4 +61,25 @@ class NotesAdapter {
         })
 
     }
+
+    deleteNote(noteId) {
+    
+        let configObj = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            }
+        }
+
+        fetch(this.normUrl + `/${noteId}`, configObj)
+        .then(res => res.json())
+        .then(json => {
+            alert(json.message)
+        })
+           
+        Note.all = Note.all.filter(i => i.id != noteId)
+        let note = document.getElementById(`note-${noteId}`)
+        note.remove()
+    }
 }
