@@ -6,6 +6,7 @@ class IngredientsAdapter{
     fetchRecipeIngredients(recId){
         fetch(this.normUrl)
         .then(res => res.json())
+        
         .then(response => {
             let recipe = Recipe.findById(recId)
             recipe.ingredients.clear
@@ -13,6 +14,7 @@ class IngredientsAdapter{
                 let ingredient = new Ingredient
                 ingredient.id = res.id 
                 ingredient.name = res.attributes.name 
+                ingredient.measurement = res.attributes.measurement
                 ingredient.recipe_id = res.relationships.recipe.data.id 
                 ingredient.amount = res.attributes.amount
                 ingredient.element = document.createElement('div')
@@ -51,11 +53,33 @@ class IngredientsAdapter{
         .then(res => res.json())
         .then(json => {
             let ingredient = new Ingredient(json.id, json.name, json.recipe_id)
+            ingredient.measurement = json.measurement
             ingredient.element = document.createElement('div')
             ingredient.element.id = `ingredient-${ingredient.id}`
            
             recipe.ingredients.push(ingredient)
             recipe.viewRecipe(ingredient.recipe_id) 
         })
+    }
+
+    deleteIng(ingId) {
+    
+        let configObj = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            }
+        }
+
+        fetch(this.normUrl + `/${ingId}`, configObj)
+        .then(res => res.json())
+        .then(json => {
+            alert(json.message)
+        })
+           
+        Ingredient.all = Ingredient.all.filter(i => i.id != ingId)
+        let ingredient = document.getElementById(`ing-${ingId}`)
+        ingredient.remove()
     }
 }
