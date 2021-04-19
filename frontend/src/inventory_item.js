@@ -1,10 +1,11 @@
 class InventoryItem {
     static all = [] 
 
-    constructor(id, name, amount) {
+    constructor(id, name, amount, measurement) {
         this.id = id
         this.name = name 
         this.amount = amount 
+        this.measurement = measurement
         this.element = document.createElement('div')
         this.element.id = `inventory-item-${this.id}`
         InventoryItem.all.push(this)
@@ -44,10 +45,16 @@ class InventoryItem {
         <div class="item-container">
             <div class="item-info">
                 <form id="edit-item-form">
-                    <label for="item-name" name="name">Item:</label> 
-                    <input for="item-name" type="text" id="item-name" value="${this.name}"> 
+                    <label for="item-name" name="name">Item:</label>
+                    <input for="item-name" type="text" id="item-name" value="${this.name}"><br>
                     <label for="item-amount" name="amount">Amount:</label>
-                    <input for="item-amount" type="number" step="0.1" id="item-amount" value="${this.amount}">
+                    <input for="item-amount" type="number" step="0.1" id="item-amount" value="${this.amount}"><br>
+                    <label for="item-measurement">Measurement:</label>
+                    <select style="width: 150px" id="item-measurement" name="item-measurement" value="Measurement">
+                        <option>lbs</option>
+                        <option>oz</option>
+                        <option>units</option>
+                    </select><br>
                 </form>
 
             </div>
@@ -62,10 +69,12 @@ class InventoryItem {
             e.preventDefault()
             const name = document.getElementById("item-name").value 
             const amount = document.getElementById("item-amount").value 
+            const measurement = document.getElementById('item-measurement').value 
 
             let itemObj = {
                 name: name, 
-                amount: amount
+                amount: amount,
+                measurement: measurement
             }
             this.updateItemOnDom() 
             adapter.sendPatch(this.id, itemObj)
@@ -80,8 +89,7 @@ class InventoryItem {
         this.element.innerHTML = `
         <div class="item-container">
             <div class="item-info">
-                <strong class="name">${this.name}</strong><br><br>
-                <span class="amount">${this.amount}</span> 
+                <span class="item-box-text">${this.name}: ${this.amount + " " + this.measurement}</span>
             </div>
             <div class="item-buttons" id="item-buttons">
                 <button class="edit" data-id="${this.id}">Edit</button>
@@ -104,6 +112,12 @@ class InventoryItem {
         <input type="text" name="name" id="item-name"><br><br>
         <label for="item-amount">Amount:</label> 
         <input type="number" name="amount" step="0.1" id="item-amount"><br><br>
+        <label for="item-measurement">Measurement:</label>
+        <select style="width: 150px" id="item-measurement" name="item-measurement" value="Measurement">
+            <option>lbs</option>
+            <option>oz</option>
+            <option>units</option>
+        </select><br><br>
         <input type="submit" value="Create">
         </form>
         `
