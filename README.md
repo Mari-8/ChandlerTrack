@@ -8,13 +8,13 @@ I have a lot of improvements in mind, and things i just didnt quite have time to
 
 ## Installation 
 
-       Fork and clone
-       type ``` bundle install ``` 
-       type ``` cd chandler_track_backend ``` 
-       type ``` rails s ``` 
-       Open a second terminal 
-       type ``` cd frontend ``` 
-       type ``` open index.html ``` 
+1. Fork and clone
+2. type bundle install 
+3. type cd chandler_track_backend 
+4. type rails s 
+5. Open a second terminal 
+6. type cd frontend 
+7. type open index.html 
 
 And your ready to rock! 
 
