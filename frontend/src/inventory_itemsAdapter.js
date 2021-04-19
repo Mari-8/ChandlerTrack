@@ -15,6 +15,7 @@ class InventoryItemsAdapter{
                 inventoryItem.id = el.id 
                 inventoryItem.name = el.attributes.name 
                 inventoryItem.amount = el.attributes.amount
+                inventoryItem.measurement = el.attributes.measurement
                 inventoryItem.element.id = `item-${el.id}`
                 inventoryItem.attachToDom(inventoryItem)
             })
@@ -28,11 +29,12 @@ class InventoryItemsAdapter{
         const invList = document.getElementById('inv-list') 
         const name = document.getElementById('item-name').value
         const amount = document.getElementById('item-amount').value
-        
+        const measurement = document.getElementById('item-measurement').value 
     
         let newItemObject = {
             name: name,
-            amount: amount        
+            amount: amount,
+            measurement: measurement      
         }
     
         let configObj = {
@@ -52,6 +54,7 @@ class InventoryItemsAdapter{
             item.name = json.data.attributes.name 
             item.amount = json.data.attributes.amount
             item.element.id = `item-${json.data.id}`
+            item.measurement = measurement
             adapter.fetchInventoryItems()
         })
     }
@@ -95,6 +98,7 @@ class InventoryItemsAdapter{
             let item = InventoryItem.all.find(i => i.id == itemId)
             item.name = itemObj.name
             item.amount = itemObj.amount 
+            item.measurement = itemObj.measurement
             
             item.attachToDom()
         })
