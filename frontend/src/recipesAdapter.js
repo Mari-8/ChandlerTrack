@@ -7,6 +7,8 @@ class RecipesAdapter{
         fetch(this.normUrl)
         .then(res => res.json())
         .then(response => {
+            const recList = document.getElementById('rec-list')
+            recList.innerHTML = ''
             response.data.forEach(el => {
                 let recipe = new Recipe
                 recipe.id = el.id 
@@ -25,13 +27,10 @@ class RecipesAdapter{
         const adapter = new RecipesAdapter
         const recList = document.getElementById('rec-list') 
         const name = document.getElementById('recipe-name').value
-        const description = document.getElementById('recipe-description').value
-        const ingredients = document.getElementById('recipe-ingredients').value
+        
     
         let newRecObject = {
-            name: name,
-            description: description,
-            ingredients: ingredients
+            name: name         
         }
     
         let configObj = {
@@ -49,8 +48,7 @@ class RecipesAdapter{
             let recipe = new Recipe 
             recipe.id = json.id 
             recipe.name = json.name 
-            recipe.description = json.description 
-            recipe.ingredients = json.ingredients
+            //recipe.ingredients = json.ingredients
             recipe.element.id = `recipe-${json.id}`
 
             adapter.fetchRecipes() 
@@ -60,13 +58,10 @@ class RecipesAdapter{
     updateRec(recId) {
 
         const name = document.getElementById('recipe-name').value
-        const description = document.getElementById('recipe-description').value
-        const ingredients = document.getElementById('recipe-ingredients').value
+       
         
         let recipeObj = {
-            name, 
-            description, 
-            ingredients
+            name
         }
         
         this.sendPatch(recId, recipeObj)
@@ -85,8 +80,12 @@ class RecipesAdapter{
         fetch(this.normUrl + `/${recId}`, configObj)
         .then(res => res.json())
         .then(response => {
+            let rec = Recipe.all.find(r => r.id == recId)
+            rec.name = recipeObj.name 
+            
             document.getElementById('rec-list').textContent = ''
             this.fetchRecipes()
+            recipe.viewRecipe(recId)
         })
     }
 
