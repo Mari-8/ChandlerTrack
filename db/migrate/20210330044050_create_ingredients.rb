@@ -2,8 +2,10 @@ class CreateIngredients < ActiveRecord::Migration[6.1]
   def change
     create_table :ingredients do |t|
       t.string :name
-      t.belongs_to :recipe 
-      t.belongs_to :inventoryItem
+      t.float :amount
+      t.string :measurement
+      t.belongs_to :recipe
+      
 
       t.timestamps
     end
