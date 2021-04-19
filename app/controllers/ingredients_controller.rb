@@ -20,7 +20,7 @@ class IngredientsController < ApplicationController
 
     def create 
         ingredient = Ingredient.new(ingredient_params)
-
+   
         if ingredient.save 
             render json: ingredient.to_json(:include => {
             :recipe => {:only => [:recipe_id, :name, :ingredients]}
@@ -45,6 +45,6 @@ class IngredientsController < ApplicationController
     private 
 
     def ingredient_params 
-        params.require(:ingredient).permit(:recipe_id, :name, :amount)
+        params.require(:ingredient).permit(:recipe_id, :measurement, :name, :amount)
     end 
 end
