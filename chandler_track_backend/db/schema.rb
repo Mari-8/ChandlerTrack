@@ -14,33 +14,32 @@ ActiveRecord::Schema.define(version: 2021_03_30_044911) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
+    t.float "amount"
+    t.string "measurement"
     t.integer "recipe_id"
-    t.integer "inventoryItem_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["inventoryItem_id"], name: "index_ingredients_on_inventoryItem_id"
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
   end
 
   create_table "inventory_items", force: :cascade do |t|
     t.string "name"
     t.string "description"
+    t.string "measurement"
     t.float "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notes", force: :cascade do |t|
-    t.string "note"
+    t.string "note_body"
     t.integer "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_notes_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
     t.string "name"
-    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
